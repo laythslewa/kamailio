@@ -916,8 +916,9 @@ int ipsec_forward(struct sip_msg* m, udomain_t* d, int _cflags)
     struct sip_msg* req = NULL;
     if(m->first_line.type == SIP_REPLY) {
         // Get request from reply
-        struct cell *t = tmb.t_gett();
-        if (!t) {
+        tm_cell_t *t = 0;
+        t = tmb.t_gett();
+        if (t == NULL || t == T_UNDEFINED) {
             LM_ERR("Error getting transaction\n");
             return ret;
         }
@@ -1040,8 +1041,9 @@ int ipsec_forward(struct sip_msg* m, udomain_t* d, int _cflags)
 
     // Update dst_info in message
     if(m->first_line.type == SIP_REPLY) {
-        struct cell *t = tmb.t_gett();
-        if (!t) {
+        tm_cell_t *t = 0;
+        t = tmb.t_gett();
+        if (t == NULL || t == T_UNDEFINED) {
             LM_ERR("Error getting transaction\n");
             goto cleanup;
         }
