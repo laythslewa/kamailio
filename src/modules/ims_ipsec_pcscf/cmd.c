@@ -502,45 +502,45 @@ static int create_ipsec_tunnel(const struct ip_addr *remote_addr, ipsec_t* s)
 
     // SA1 UE client to P-CSCF server
     //               src adrr     dst addr     src port    dst port
-    add_sa    (sock, remote_addr, &ipsec_addr, s->port_uc, s->port_ps, s->spi_ps, s->ck, s->ik, s->r_alg, s->r_ealg);
-    add_policy(sock, remote_addr, &ipsec_addr, s->port_uc, s->port_ps, s->spi_ps, IPSEC_POLICY_DIRECTION_IN);
+    add_sa    (sock, remote_addr, ipsec_addr, s->port_uc, s->port_ps, s->spi_ps, s->ck, s->ik, s->r_alg, s->r_ealg);
+    add_policy(sock, remote_addr, ipsec_addr, s->port_uc, s->port_ps, s->spi_ps, IPSEC_POLICY_DIRECTION_IN);
 
     // SA2 P-CSCF client to UE server
     //               src adrr     dst addr     src port           dst port
-    add_sa    (sock, &ipsec_addr, remote_addr, s->port_pc, s->port_us, s->spi_us, s->ck, s->ik, s->r_alg, s->r_ealg);
-    add_policy(sock, &ipsec_addr, remote_addr, s->port_pc, s->port_us, s->spi_us, IPSEC_POLICY_DIRECTION_OUT);
+    add_sa    (sock, ipsec_addr, remote_addr, s->port_pc, s->port_us, s->spi_us, s->ck, s->ik, s->r_alg, s->r_ealg);
+    add_policy(sock, ipsec_addr, remote_addr, s->port_pc, s->port_us, s->spi_us, IPSEC_POLICY_DIRECTION_OUT);
 
     // SA3 P-CSCF server to UE client
     //               src adrr     dst addr     src port           dst port
-    add_sa    (sock, &ipsec_addr, remote_addr, s->port_ps, s->port_uc, s->spi_uc, s->ck, s->ik, s->r_alg, s->r_ealg);
-    add_policy(sock, &ipsec_addr, remote_addr, s->port_ps, s->port_uc, s->spi_uc, IPSEC_POLICY_DIRECTION_OUT);
+    add_sa    (sock, ipsec_addr, remote_addr, s->port_ps, s->port_uc, s->spi_uc, s->ck, s->ik, s->r_alg, s->r_ealg);
+    add_policy(sock, ipsec_addr, remote_addr, s->port_ps, s->port_uc, s->spi_uc, IPSEC_POLICY_DIRECTION_OUT);
 
     // SA4 UE server to P-CSCF client
     //               src adrr     dst addr     src port    dst port
-    add_sa    (sock, remote_addr, &ipsec_addr, s->port_us, s->port_pc, s->spi_pc, s->ck, s->ik, s->r_alg, s->r_ealg);
-    add_policy(sock, remote_addr, &ipsec_addr, s->port_us, s->port_pc, s->spi_pc, IPSEC_POLICY_DIRECTION_IN);
+    add_sa    (sock, remote_addr, ipsec_addr, s->port_us, s->port_pc, s->spi_pc, s->ck, s->ik, s->r_alg, s->r_ealg);
+    add_policy(sock, remote_addr, ipsec_addr, s->port_us, s->port_pc, s->spi_pc, IPSEC_POLICY_DIRECTION_IN);
 
     /* Fix for some broken In-Dialog routing */
 
     // SA5 UE client to P-CSCF client
     //               src adrr     dst addr     src port    dst port
-    add_sa    (sock, remote_addr, &ipsec_addr, s->port_uc, s->port_pc, s->spi_ps, s->ck, s->ik, s->r_alg, s->r_ealg);
-    add_policy(sock, remote_addr, &ipsec_addr, s->port_uc, s->port_pc, s->spi_ps, IPSEC_POLICY_DIRECTION_IN);
+    add_sa    (sock, remote_addr, ipsec_addr, s->port_uc, s->port_pc, s->spi_ps, s->ck, s->ik, s->r_alg, s->r_ealg);
+    add_policy(sock, remote_addr, ipsec_addr, s->port_uc, s->port_pc, s->spi_ps, IPSEC_POLICY_DIRECTION_IN);
 
     // SA6 P-CSCF client to UE client
     //               src adrr     dst addr     src port    dst port
-    add_sa    (sock, &ipsec_addr, remote_addr, s->port_pc, s->port_uc, s->spi_us, s->ck, s->ik, s->r_alg, s->r_ealg);
-    add_policy(sock, &ipsec_addr, remote_addr, s->port_pc, s->port_uc, s->spi_us, IPSEC_POLICY_DIRECTION_OUT);
+    add_sa    (sock, ipsec_addr, remote_addr, s->port_pc, s->port_uc, s->spi_us, s->ck, s->ik, s->r_alg, s->r_ealg);
+    add_policy(sock, ipsec_addr, remote_addr, s->port_pc, s->port_uc, s->spi_us, IPSEC_POLICY_DIRECTION_OUT);
 
     // SA7 P-CSCF server to UE server
     //               src adrr     dst addr     src port    dst port
-    add_sa    (sock, &ipsec_addr, remote_addr, s->port_ps, s->port_us, s->spi_uc, s->ck, s->ik, s->r_alg, s->r_ealg);
-    add_policy(sock, &ipsec_addr, remote_addr, s->port_ps, s->port_us, s->spi_uc, IPSEC_POLICY_DIRECTION_OUT);
+    add_sa    (sock, ipsec_addr, remote_addr, s->port_ps, s->port_us, s->spi_uc, s->ck, s->ik, s->r_alg, s->r_ealg);
+    add_policy(sock, ipsec_addr, remote_addr, s->port_ps, s->port_us, s->spi_uc, IPSEC_POLICY_DIRECTION_OUT);
 
     // SA8 UE server to P-CSCF server
     //               src adrr     dst addr     src port    dst port
-    add_sa    (sock, remote_addr, &ipsec_addr, s->port_us, s->port_ps, s->spi_pc, s->ck, s->ik, s->r_alg, s->r_ealg);
-    add_policy(sock, remote_addr, &ipsec_addr, s->port_us, s->port_ps, s->spi_pc, IPSEC_POLICY_DIRECTION_IN);
+    add_sa    (sock, remote_addr, ipsec_addr, s->port_us, s->port_ps, s->spi_pc, s->ck, s->ik, s->r_alg, s->r_ealg);
+    add_policy(sock, remote_addr, ipsec_addr, s->port_us, s->port_ps, s->spi_pc, IPSEC_POLICY_DIRECTION_IN);
 
     close_mnl_socket(sock);
 
@@ -1181,7 +1181,7 @@ int ipsec_destroy_by_contact(udomain_t* _d, str * uri, str * received_host, int 
     search_ci.aor.len = uri->len;
     search_ci.reg_state = PCONTACT_ANY;
 
-    if (ul.get_pcontact(_d, &search_ci, &pcontact) != 0) {
+    if (ul.get_pcontact(_d, &search_ci, &pcontact, 0) != 0) {
         LM_ERR("Contact doesn't exist\n");
         return ret;
     }
